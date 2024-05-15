@@ -23,3 +23,45 @@ void FileIO::openFiles (int argc, char **argv) {
   openInFile(argv[1]);
   openOutFile(argv[1]);
 }
+
+
+int FileIO::valueToInt (char valChr) {
+  if (valChr >=2 && valChr <= 9) return valChr - '0' - 2; // 0 .. 7
+  else if (valChr == 'J') return 8;
+  else if (valChr == 'Q') return 9;
+  else if (valChr == 'K') return 10;
+  else if (valChr == 'A') return 11;
+  return 0;
+}
+char FileIO::valueToChar (int val) {
+  if (val >=0 && val <=7) return val + 2 + '0'; // '2' .. '9'
+  else if (val == 8) return 'J';
+  else if (val == 9) return 'Q';
+  else if (val == 10) return 'K';
+  else if (val == 11) return 'A';
+  else return 0;
+}
+
+
+bool FileIO::getCard (struct Card *c) {
+  std::string inC;
+  inFile >> inC;
+
+  if (inFile.eof()) return false;
+  else {
+    c->value = valueToInt(inC[0]); // Integer needed to rank hands
+    c->suit = inC[1];
+  }
+  return true;
+}
+bool FileIO::getHand (struct Hand *h) {
+  for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
+    if (!getCard(&h->cards[i])) return false;
+  }
+  return true;
+}
+bool FileIO::getHands (struct Hand *WhiteHand, struct Hand *BlackHand) {
+  if (!getHand(WhiteHand)) return false;
+  else getHand(BlackHand);
+  return true;
+}

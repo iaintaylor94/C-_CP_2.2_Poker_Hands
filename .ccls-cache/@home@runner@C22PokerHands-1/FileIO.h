@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+#include "Hands.h"
+
 class FileIO {
   std::ifstream inFile;
   std::ofstream outFile;
@@ -12,6 +14,12 @@ class FileIO {
   void testArgc(int);
   void openInFile(const char *);
   void openOutFile(const char *);
+
+  int valueToInt (char);
+  char valueToChar (int);
+
+  bool getCard(struct Card *);
+  bool getHand(struct Hand *);
 
 public:
   FileIO() {};
@@ -25,6 +33,9 @@ public:
     outFile.close();
   };
   void openFiles (int argc, char **argv);
+
+  bool getHands (struct Hand *, struct Hand *);
+  void printWinner (const char *);
 
 };
 

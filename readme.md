@@ -35,7 +35,7 @@ The rank of the hands are as below (lowest to highest):
 9. Straight flush (straight + flush - ranked by highest card)
 
 The input consists of:
-1. 10 value/suit pairs
+1. 10 value/suit pairs (WHITE/BLACK)
 2. Terminates on EOF
 
 
