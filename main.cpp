@@ -8,8 +8,8 @@ int main(int argc, char **argv) {
 
   struct Hand whiteHand, blackHand;
   while (fileIO.getHands(&whiteHand, &blackHand)) {
-    std::cout << "White hand: " << std::endl;
-    std::cout << "Black hand: " << std::endl;
+    std::cout << "White hand: ";  whiteHand.printHand();
+    std::cout << "Black hand: ";  blackHand.printHand();
   }
 
   return 0;
