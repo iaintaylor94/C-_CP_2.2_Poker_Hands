@@ -9,7 +9,6 @@
 class PokerHands {
   FileIO fileIO;
 
-
   struct Hand whiteHand;
   struct Hand blackHand;
 
@@ -20,7 +19,7 @@ public:
   PokerHands() {};
   ~PokerHands() {};
 
-  void openFiles (int argc, char **argv);
+  void openFiles (int, char **);
 
   bool getHands (void);
   void compareHands (void);
