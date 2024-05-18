@@ -14,6 +14,12 @@ class PokerHands {
 
   enum winner win;
 
+  struct DeckRank whiteRank;
+  struct DeckRank blackRank;
+
+  struct DeckRank getDeckRank (struct Hand*);
+  enum winner compareRanks (struct DeckRank*, struct DeckRank*);
+
 
 public:
   PokerHands() {};
@@ -22,7 +28,7 @@ public:
   void openFiles (int, char **);
 
   bool getHands (void);
-  void compareHands (void);
+  void getWinner (void);
   void printWinner (void);
 };
 

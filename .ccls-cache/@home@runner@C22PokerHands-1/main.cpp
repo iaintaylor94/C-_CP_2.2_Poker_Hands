@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "FileIO.h"
+
 #include "PokerHands.h"
 
 int main(int argc, char **argv) {
@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
   pokerHands.openFiles(argc, argv);
 
   while (pokerHands.getHands()) {
-    pokerHands.compareHands();
+    pokerHands.getWinner();
     pokerHands.printWinner();
   }
 
