@@ -35,8 +35,7 @@ public:
   void openFiles (int argc, char **argv);
 
   bool getHands (struct Hand *, struct Hand *);
-  void printWinner (const char *);
-
+  void printWinner (enum winner);
 };
 
 #endif

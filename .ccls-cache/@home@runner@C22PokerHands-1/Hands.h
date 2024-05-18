@@ -3,6 +3,11 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+
+enum winner {
+  WHITE, BLACK, TIE
+};
 
 const int NUM_CARDS_IN_HAND = 5;
 
@@ -16,7 +21,8 @@ struct Hand {
 
   void printHand (void) {
     for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
-      std::cout << cards[i].value << "." << cards[i].suit << " ";
+      std::cout << std::setw(2) << cards[i].value << ".";
+      std::cout << cards[i].suit << " ";
     }
     std::cout << std::endl;
   }

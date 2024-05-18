@@ -26,7 +26,7 @@ void FileIO::openFiles (int argc, char **argv) {
 
 
 int FileIO::valueToInt (char valChr) {
-  if (valChr >=2 && valChr <= 9) return valChr - '0' - 2; // 0 .. 7
+  if (valChr >= '2' && valChr <= '9') return valChr - '0' - 2; // 0 .. 7
   else if (valChr == 'J') return 8;
   else if (valChr == 'Q') return 9;
   else if (valChr == 'K') return 10;
@@ -34,7 +34,7 @@ int FileIO::valueToInt (char valChr) {
   return 0;
 }
 char FileIO::valueToChar (int val) {
-  if (val >=0 && val <=7) return val + 2 + '0'; // '2' .. '9'
+  if (val >= 0 && val <= 7) return val + 2 + '0'; // '2' .. '9'
   else if (val == 8) return 'J';
   else if (val == 9) return 'Q';
   else if (val == 10) return 'K';
@@ -64,4 +64,11 @@ bool FileIO::getHands (struct Hand *WhiteHand, struct Hand *BlackHand) {
   if (!getHand(WhiteHand)) return false;
   else getHand(BlackHand);
   return true;
+}
+
+void FileIO::printWinner(enum winner win) {
+  if (win == WHITE) std::cout << "White wins." << std::endl;
+  else if (win == BLACK) std::cout << "Black wins." << std::endl;
+  else if (win == TIE) std::cout << "Tie." << std::endl;
+  else std::cerr << "Error: invalid winner" << std::endl;
 }
