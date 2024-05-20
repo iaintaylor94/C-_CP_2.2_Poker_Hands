@@ -1,6 +1,9 @@
 #ifndef _POKER_HANDS_H_
 #define _POKER_HANDS_H_
 
+#include <vector>
+#include <algorithm>
+
 #include "FileIO.h"
 #include "Hands.h"
 #include "Rank.h"
@@ -16,6 +19,9 @@ class PokerHands {
 
   struct DeckRank whiteRank;
   struct DeckRank blackRank;
+
+  int isHighCard (struct Hand *);
+  int isOnePair (struct Hand *);
 
   struct DeckRank getDeckRank (struct Hand*);
   enum winner compareRanks (struct DeckRank*, struct DeckRank*);

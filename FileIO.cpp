@@ -26,7 +26,7 @@ void FileIO::openFiles (int argc, char **argv) {
 
 
 int FileIO::valueToInt (char valChr) {
-  if (valChr >= '2' && valChr <= '9') return valChr - '0' - 2; // 0 .. 7
+  if (valChr >= '2' && valChr <= '9') return valChr - '0' - 1; // 1 .. 8
   else if (valChr == 'J') return 8;
   else if (valChr == 'Q') return 9;
   else if (valChr == 'K') return 10;
@@ -34,7 +34,7 @@ int FileIO::valueToInt (char valChr) {
   return 0;
 }
 char FileIO::valueToChar (int val) {
-  if (val >= 0 && val <= 7) return val + 2 + '0'; // '2' .. '9'
+  if (val >= 0 && val <= 7) return val + 1 + '0'; // '2' .. '9'
   else if (val == 8) return 'J';
   else if (val == 9) return 'Q';
   else if (val == 10) return 'K';
