@@ -20,8 +20,12 @@ class PokerHands {
   struct DeckRank whiteRank;
   struct DeckRank blackRank;
 
-  int isHighCard (struct Hand *);
-  int isOnePair (struct Hand *);
+  static const int NUM_VALUES = 12;
+
+  struct DeckRank isHighCard (struct Hand *);
+  struct DeckRank isOnePair (struct Hand *);
+  struct DeckRank isTwoPair (struct Hand *);
+
 
   struct DeckRank getDeckRank (struct Hand*);
   enum winner compareRanks (struct DeckRank*, struct DeckRank*);
