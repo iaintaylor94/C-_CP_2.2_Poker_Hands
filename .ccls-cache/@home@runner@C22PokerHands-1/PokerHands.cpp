@@ -190,7 +190,6 @@ struct DeckRank PokerHands::isFlush (struct Hand *h) {
   // Initialize ret
   struct DeckRank ret;
   ret.active = false;
-  ret.rank = FLUSH;
 
   // Initialize suit vector
   std::vector<int> suitVector;
@@ -207,6 +206,7 @@ struct DeckRank PokerHands::isFlush (struct Hand *h) {
   for (auto it = suitVector.begin(); it != suitVector.end(); it++) {
     if (*it == NUM_CARDS_IN_HAND)
       ret.active = true;
+      ret.rank = FLUSH;
   }
 
   // Compute HighCard
