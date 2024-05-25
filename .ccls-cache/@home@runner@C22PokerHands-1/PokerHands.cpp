@@ -226,7 +226,6 @@ struct DeckRank PokerHands::isFullHouse (struct Hand *h) {
   // Initialize DeckRank
   struct DeckRank ret;
   ret.active = false;
-  ret.rank = FULL_HOUSE;
 
   // Initialize vector - value counter
   std::vector<int> valueCounter;
@@ -243,22 +242,30 @@ struct DeckRank PokerHands::isFullHouse (struct Hand *h) {
   bool isThree = false;
   bool isPair = false;
   int threeVal = 0;
+  int pairVal = 0;
 
   for (auto it = valueCounter.begin(); it != valueCounter.end(); it++) {
     if (*it == 3) {
       isThree = true;
       threeVal = std::distance(valueCounter.begin(), it);
     }
-    if (*it == 2) isPair = true;
+    if (*it == 2) {
+      isPair = true;
+      pairVal = std::distance(valueCounter.begin(), it);
+    }
   }
 
   // Compute highCard
   if (isThree && isPair) {
     ret.active = true;
+    ret.rank = FULL_HOUSE;
 
     ret.highCard.push_back(threeVal);
-    for (int i = 0; i < 4; i++) 
-      ret.highCard.push_back(0);
+    ret.highCard.push_back(threeVal);
+    ret.highCard.push_back(threeVal);
+
+    ret.highCard.push_back(pairVal);
+    ret.highCard.push_back(pairVal);
   }
 
   return ret;
