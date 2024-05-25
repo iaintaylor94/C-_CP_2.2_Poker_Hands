@@ -258,6 +258,41 @@ struct DeckRank PokerHands::isFullHouse (struct Hand *h) {
 
   return ret;
 }
+struct DeckRank PokerHands::isFourOfAKind (struct Hand *h) {
+  // Initialize ret
+  struct DeckRank ret;
+  ret.active = false;
+
+  // Initialize vector - value counter
+  std::vector<int> valueCounter;
+  for (int i = 0; i < NUM_VALUES; i++) {
+    valueCounter.push_back(0);
+  }
+
+  // Populate vector - number of each value
+  for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
+    valueCounter[h->cards[i].value]++;
+  }
+
+  // Determine if Four of a Kind
+  bool isFourOfKind = false;
+  for (auto it = valueCounter.begin(); it != valueCounter.end(); it++) {
+    if (*it == 4) {
+      isFourOfKind = true;
+    }
+  }
+
+  // if is4oK determine DeckRank
+  if (isFourOfKind) {
+    ret.active = true;
+    ret.rank = FOUR_OF_A_KIND;
+    ret.highCard.push_back(std::distance(valueCounter.begin(), it));
+    for (int i = 0; i < 4; i++)
+      ret.highCard.push_back(0);
+  }
+
+  return ret;
+}
 
 struct DeckRank PokerHands::getDeckRank (struct Hand *h) {
   struct DeckRank ret;
