@@ -20,8 +20,6 @@ class PokerHands {
   struct DeckRank whiteRank;
   struct DeckRank blackRank;
 
-  static const int NUM_VALUES = 12;
-
   struct DeckRank isHighCard (struct Hand *);
   struct DeckRank isOnePair (struct Hand *);
   struct DeckRank isTwoPair (struct Hand *);

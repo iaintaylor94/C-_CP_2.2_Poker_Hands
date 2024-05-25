@@ -6,17 +6,17 @@
 #include <iomanip>
 
 const int NUM_SUITS = 4;
+enum SUIT {CLUBS, DIAMONDS, HEARTS, SPADES};
 
-enum winner {
-  WHITE, BLACK, TIE
+const int NUM_VALUES = 13;
+enum VALUE {TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE};
+
+struct Card {
+  SUIT suit;
+  VALUE value;
 };
 
 const int NUM_CARDS_IN_HAND = 5;
-
-struct Card {
-  char suit; // C, D, H, S
-  int value; // 2 - 13
-};
 
 struct Hand {
   struct Card cards[NUM_CARDS_IN_HAND];
@@ -30,5 +30,8 @@ struct Hand {
   }
 };
 
+enum winner {
+  WHITE, BLACK, TIE
+};
 
 #endif
