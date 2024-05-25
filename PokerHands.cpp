@@ -181,6 +181,43 @@ struct DeckRank PokerHands::isStraight (struct Hand *h) {
   return ret;
 }
 
+struct DeckRank PokerHands::isFlush (struct Hand *h) {
+  // Initialize ret
+  struct DeckRank ret;
+  ret.active = false;
+  ret.rank = FLUSH;
+
+  // Initialize suit vector
+  std::vector<int> suitVector;
+  for (int i = 0; i < NUM_SUITS; i++) {
+    suitVector.push_back(0);
+  }
+
+  // Populate suit vector - number of each suit
+  for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
+    suitVector[h->cards[i].suit]++;
+  }
+
+  // Determine if flush
+  for (auto it = suitVector.begin(); it != suitVector.end(); it++) {
+    if (*it == NUM_CARDS_IN_HAND)
+      ret.active = true;
+  }
+
+  // Compute HighCard
+  // 1. copy card values to highCard vector
+  // 2. sort highCard vector descending
+
+  // 1. 
+  for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
+    ret.highCard.push_back(h->cards[i].value);
+  }
+  // 2.
+  sort(ret.highCard.begin(), ret.highCard.end(), std::greater<int>());
+
+  return ret;
+}
+
 struct DeckRank PokerHands::getDeckRank (struct Hand *h) {
   struct DeckRank ret;
 

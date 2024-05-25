@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iomanip>
 
+const int NUM_SUITS = 4;
+
 enum winner {
   WHITE, BLACK, TIE
 };
