@@ -132,25 +132,11 @@ struct DeckRank PokerHands::isThreeOfAKind (struct Hand *h) {
       ret.highCard.push_back(index);
       ret.highCard.push_back(index);
       ret.highCard.push_back(index);
-    }
-    for (auto jt = valueCounter.begin(); jt != valueCounter.end(); jt++) {
-      if (it == jt) continue;
-      else {
-        if (*it == 2) {
-          int index = std::distance(valueCounter.begin(), it);
-          ret.highCard.push_back(index);
-          ret.highCard.push_back(index);
-        }
-        if (*it == 1) {
-          int index = std::distance(valueCounter.begin(), it);
-          ret.highCard.push_back(index);
-        }
-      }
+
+      ret.highCard.push_back(0);
+      ret.highCard.push_back(0);
     }
   }
-  // Sort lower 2 cards - descending
-  sort(ret.highCard.begin() + 3, ret.highCard.end(), std::greater<int>());
-
   return ret;
 }
 struct DeckRank PokerHands::isStraight (struct Hand *h) {
@@ -181,6 +167,11 @@ struct DeckRank PokerHands::isStraight (struct Hand *h) {
   if (noDuplicates && ret.highCard[0] - ret.highCard[4] == 4) {
     ret.active = true;
     ret.rank = STRAIGHT;
+
+    ret.highCard[1] = 0;
+    ret.highCard[2] = 0;
+    ret.highCard[3] = 0;
+    ret.highCard[4] = 0;
   }
 
   return ret;
@@ -242,7 +233,6 @@ struct DeckRank PokerHands::isFullHouse (struct Hand *h) {
   bool isThree = false;
   bool isPair = false;
   int threeVal = 0;
-  int pairVal = 0;
 
   for (auto it = valueCounter.begin(); it != valueCounter.end(); it++) {
     if (*it == 3) {
@@ -251,7 +241,6 @@ struct DeckRank PokerHands::isFullHouse (struct Hand *h) {
     }
     if (*it == 2) {
       isPair = true;
-      pairVal = std::distance(valueCounter.begin(), it);
     }
   }
 
@@ -264,8 +253,8 @@ struct DeckRank PokerHands::isFullHouse (struct Hand *h) {
     ret.highCard.push_back(threeVal);
     ret.highCard.push_back(threeVal);
 
-    ret.highCard.push_back(pairVal);
-    ret.highCard.push_back(pairVal);
+    ret.highCard.push_back(0);
+    ret.highCard.push_back(0);
   }
 
   return ret;
@@ -292,8 +281,10 @@ struct DeckRank PokerHands::isFourOfAKind (struct Hand *h) {
       ret.active = true;
       ret.rank = FOUR_OF_A_KIND;
       ret.highCard.push_back(std::distance(valueCounter.begin(), it));
-      for (int i = 0; i < 4; i++)
-        ret.highCard.push_back(0);
+      ret.highCard.push_back(std::distance(valueCounter.begin(), it));
+      ret.highCard.push_back(std::distance(valueCounter.begin(), it));
+      ret.highCard.push_back(std::distance(valueCounter.begin(), it));
+      ret.highCard.push_back(0);  
     }
   }
 
@@ -323,27 +314,27 @@ struct DeckRank PokerHands::getDeckRank (struct Hand *h) {
   if (ret.active) return ret;
 
   ret = isFourOfAKind(h);
-  //if (ret.active) return ret;
+  if (ret.active) return ret;
 
-  //ret = isFullHouse(h);
-  //if (ret.active) return ret;
+  ret = isFullHouse(h);
+  if (ret.active) return ret;
 
-  //ret = isFlush(h);
-  //if (ret.active) return ret;
+  ret = isFlush(h);
+  if (ret.active) return ret;
     
-  //ret = isStraight(h);
-  //if (ret.active) return ret;
+  ret = isStraight(h);
+  if (ret.active) return ret;
 
-  //ret = isThreeOfAKind(h);
-  //if (ret.active) return ret;
+  ret = isThreeOfAKind(h);
+  if (ret.active) return ret;
 
-  //ret = isTwoPair(h);
-  //if (ret.active) return ret;
+  ret = isTwoPair(h);
+  if (ret.active) return ret;
 
-  //ret = isOnePair(h);
-  //if (ret.active) return ret;
-
-  //ret = isHighCard(h);
+  ret = isOnePair(h);
+  if (ret.active) return ret;
+  
+  ret = isHighCard(h);
   return ret;
 }
 enum winner PokerHands::compareRanks (struct DeckRank *DRW, struct DeckRank *DRB) {
