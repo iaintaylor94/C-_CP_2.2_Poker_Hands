@@ -95,6 +95,89 @@ struct DeckRank PokerHands::isTwoPair (struct Hand *h) {
     int index = std::distance(valueCounter.begin(), it);
     if (*it == 1) ret.highCard.push_back(index);
   }
+
+  if (pair1 && pair2) {
+    ret.active = true;
+    ret.rank = TWO_PAIR;
+  }
+  
+  return ret;
+}
+
+struct DeckRank PokerHands::isThreeOfAKind (struct Hand *h) {
+  // Initialize vector - value counter
+  std::vector<int> valueCounter;
+  for (int i = 0; i < NUM_VALUES; i++) {
+    valueCounter.push_back(0);
+  }
+
+  // Populate vector - number of each value 
+  for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
+    valueCounter[h->cards[i].value]++;
+  }
+
+  struct DeckRank ret;
+  ret.active = false;
+  
+  // Find three of a kind
+  for (auto it = valueCounter.begin(); it != valueCounter.end(); it++) {
+    if (*it == 3) {
+      ret.active = true;
+      ret.rank = THREE_OF_A_KIND;
+      
+      int index = std::distance(valueCounter.begin(), it);
+      ret.highCard.push_back(index);
+      ret.highCard.push_back(index);
+      ret.highCard.push_back(index);
+    }
+    for (auto jt = valueCounter.begin(); jt != valueCounter.end(); jt++) {
+      if (it == jt) continue;
+      else {
+        if (*it == 2) {
+          int index = std::distance(valueCounter.begin(), it);
+          ret.highCard.push_back(index);
+          ret.highCard.push_back(index);
+        }
+        if (*it == 1) {
+          int index = std::distance(valueCounter.begin(), it);
+          ret.highCard.push_back(index);
+        }
+      }
+    }
+  }
+  // Sort lower 2 cards - descending
+  sort(ret.highCard.begin() + 3, ret.highCard.end(), std::greater<int>());
+
+  return ret;
+}
+struct DeckRank PokerHands::isStraight (struct Hand *h) {
+
+  struct DeckRank ret;
+  ret.active = false;
+  ret.rank = STRAIGHT;
+
+  // Copy hand to highCard vector
+  for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
+    ret.highCard.push_back(h->cards[i].value);
+  }
+
+  // Find straight
+  // 1. Sort cards - descending
+  // 2. Check no duplicates
+  // 3. if (card1 - card5 == 4)) => straight
+
+  // 1.
+  sort(ret.highCard.begin(), ret.highCard.end(), std::less<int>());
+
+  // 2.
+  bool noDuplicates = true;
+  for (auto it = ret.highCard.begin(); it != ret.highCard.end() - 1; it++) 
+    if (*it == *(it + 1)) noDuplicates = false;
+
+  // 3.
+  if (noDuplicates && ret.highCard[0] - ret.highCard[4] == 4)
+    ret.active = true;
+
   return ret;
 }
 
