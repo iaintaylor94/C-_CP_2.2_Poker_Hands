@@ -28,6 +28,7 @@ class PokerHands {
   struct DeckRank isThreeOfAKind (struct Hand *);
   struct DeckRank isStraight (struct Hand *);
   struct DeckRank isFlush   (struct Hand *);
+  struct DeckRank isFullHouse(struct Hand *);
 
 
   struct DeckRank getDeckRank (struct Hand*);

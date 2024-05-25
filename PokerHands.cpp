@@ -217,6 +217,47 @@ struct DeckRank PokerHands::isFlush (struct Hand *h) {
 
   return ret;
 }
+struct DeckRank PokerHands::isFullHouse (struct Hand *h) {
+  // Initialize DeckRank
+  struct DeckRank ret;
+  ret.active = false;
+  ret.rank = FULL_HOUSE;
+
+  // Initialize vector - value counter
+  std::vector<int> valueCounter;
+  for (int i = 0; i < NUM_VALUES; i++) {
+    valueCounter.push_back(0);
+  }
+
+  // Populate vector - number of each value
+  for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
+    valueCounter[h->cards[i].value]++;
+  }
+
+  // Find full house
+  bool isThree = false;
+  bool isPair = false;
+  int threeVal = 0;
+
+  for (auto it = valueCounter.begin(); it != valueCounter.end(); it++) {
+    if (*it == 3) {
+      isThree = true;
+      threeVal = std::distance(valueCounter.begin(), it);
+    }
+    if (*it == 2) isPair = true;
+  }
+
+  // Compute highCard
+  if (isThree && isPair) {
+    ret.active = true;
+
+    ret.highCard.push_back(threeVal);
+    for (int i = 0; i < 4; i++) 
+      ret.highCard.push_back(0);
+  }
+
+  return ret;
+}
 
 struct DeckRank PokerHands::getDeckRank (struct Hand *h) {
   struct DeckRank ret;
