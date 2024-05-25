@@ -32,7 +32,6 @@ class PokerHands {
   struct DeckRank isFourOfAKind(struct Hand *);
   struct DeckRank isStraightFlush(struct Hand *);
 
-
   struct DeckRank getDeckRank (struct Hand*);
   enum winner compareRanks (struct DeckRank*, struct DeckRank*);
 

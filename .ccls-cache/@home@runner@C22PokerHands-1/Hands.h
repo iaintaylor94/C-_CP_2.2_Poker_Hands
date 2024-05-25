@@ -14,8 +14,8 @@ enum winner {
 const int NUM_CARDS_IN_HAND = 5;
 
 struct Card {
-  char suit;
-  int value;
+  char suit; // C, D, H, S
+  int value; // 2 - 13
 };
 
 struct Hand {

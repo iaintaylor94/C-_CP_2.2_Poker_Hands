@@ -275,7 +275,6 @@ struct DeckRank PokerHands::isFourOfAKind (struct Hand *h) {
   }
 
   // Determine if Four of a Kind
-  bool isFourOfKind = false;
   for (auto it = valueCounter.begin(); it != valueCounter.end(); it++) {
     if (*it == 4) {
       ret.active = true;
@@ -312,27 +311,27 @@ struct DeckRank PokerHands::getDeckRank (struct Hand *h) {
   if (ret.active) return ret;
 
   ret = isFourOfAKind(h);
-  if (ret.active) return ret;
+  //if (ret.active) return ret;
 
-  ret = isFullHouse(h);
-  if (ret.active) return ret;
+  //ret = isFullHouse(h);
+  //if (ret.active) return ret;
 
-  ret = isFlush(h);
-  if (ret.active) return ret;
+  //ret = isFlush(h);
+  //if (ret.active) return ret;
     
-  ret = isStraight(h);
-  if (ret.active) return ret;
+  //ret = isStraight(h);
+  //if (ret.active) return ret;
 
-  ret = isThreeOfAKind(h);
-  if (ret.active) return ret;
+  //ret = isThreeOfAKind(h);
+  //if (ret.active) return ret;
 
-  ret = isTwoPair(h);
-  if (ret.active) return ret;
+  //ret = isTwoPair(h);
+  //if (ret.active) return ret;
 
-  ret = isOnePair(h);
-  if (ret.active) return ret;
+  //ret = isOnePair(h);
+  //if (ret.active) return ret;
 
-  ret = isHighCard(h);
+  //ret = isHighCard(h);
   return ret;
 }
 enum winner PokerHands::compareRanks (struct DeckRank *DRW, struct DeckRank *DRB) {
