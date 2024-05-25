@@ -278,17 +278,28 @@ struct DeckRank PokerHands::isFourOfAKind (struct Hand *h) {
   bool isFourOfKind = false;
   for (auto it = valueCounter.begin(); it != valueCounter.end(); it++) {
     if (*it == 4) {
-      isFourOfKind = true;
+      ret.active = true;
+      ret.rank = FOUR_OF_A_KIND;
+      ret.highCard.push_back(std::distance(valueCounter.begin(), it));
+      for (int i = 0; i < 4; i++)
+        ret.highCard.push_back(0);
     }
   }
 
-  // if is4oK determine DeckRank
-  if (isFourOfKind) {
+  return ret;
+}
+struct DeckRank PokerHands::isStraightFlush (struct Hand *h) {
+  // Initialize ret
+  struct DeckRank ret;
+  ret.active = false;
+
+  struct DeckRank straight = isStraight(h);
+  struct DeckRank flush = isFlush(h);
+
+  if (straight.active && flush.active) {
     ret.active = true;
-    ret.rank = FOUR_OF_A_KIND;
-    ret.highCard.push_back(std::distance(valueCounter.begin(), it));
-    for (int i = 0; i < 4; i++)
-      ret.highCard.push_back(0);
+    ret.rank = STRAIGHT_FLUSH;
+    ret.highCard = straight.highCard;
   }
 
   return ret;
