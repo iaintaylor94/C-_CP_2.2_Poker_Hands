@@ -7,7 +7,6 @@ void PokerHands::openFiles (int argc, char **argv) {
 
 struct DeckRank PokerHands::isHighCard (struct Hand *h) {
   struct DeckRank ret;
-  
   ret.active = true;
   ret.rank = HIGH_CARD;
   
@@ -66,11 +65,14 @@ struct DeckRank PokerHands::isTwoPair (struct Hand *h) {
     valueCounter[h->cards[i].value]++;
   }
 
+  // Initialize ret
   struct DeckRank ret;
-  bool pair1 = false;
-  bool pair2 = false;
+  ret.active = false;
   
   // Find pairs
+  bool pair1 = false; 
+  bool pair2 = false;
+  
   for (auto it = valueCounter.end(); it != valueCounter.begin(); it--) {
     int index;
     
