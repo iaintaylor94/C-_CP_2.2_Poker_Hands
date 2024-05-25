@@ -118,6 +118,7 @@ struct DeckRank PokerHands::isThreeOfAKind (struct Hand *h) {
     valueCounter[h->cards[i].value]++;
   }
 
+  // Initialize ret
   struct DeckRank ret;
   ret.active = false;
   
