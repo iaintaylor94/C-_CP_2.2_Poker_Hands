@@ -11,11 +11,12 @@ The cards contain the values (lowes to highest):
 5. 6                                             
 6. 7                                              
 7. 8                                                  
-8. 9                                             
-9. J (Jack)                                          
-10. Q (Queen)                                          
-11. K (King)                                            
-12. A (Ace)                                         
+8. 9
+9. T (Ten)
+10. J (Jack)                                          
+11. Q (Queen)                                          
+12. K (King)                                            
+13. A (Ace)                                         
 
 The cards are of suit:
 1. C (Clubs)

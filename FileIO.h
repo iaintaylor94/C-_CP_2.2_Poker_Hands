@@ -15,8 +15,8 @@ class FileIO {
   void openInFile(const char *);
   void openOutFile(const char *);
 
-  int valueToInt (char);
-  char valueToChar (int);
+  enum VALUE charToVALUE (char);
+  enum SUIT charToSUIT (char);
 
   bool getCard(struct Card *);
   bool getHand(struct Hand *);

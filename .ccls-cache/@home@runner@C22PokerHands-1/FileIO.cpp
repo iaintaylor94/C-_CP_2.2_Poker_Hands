@@ -25,21 +25,29 @@ void FileIO::openFiles (int argc, char **argv) {
 }
 
 
-int FileIO::valueToInt (char valChr) {
-  if (valChr >= '2' && valChr <= '9') return valChr - '0' - 1; // 1 .. 8
-  else if (valChr == 'J') return 8;
-  else if (valChr == 'Q') return 9;
-  else if (valChr == 'K') return 10;
-  else if (valChr == 'A') return 11;
-  return 0;
+enum VALUE FileIO::charToVALUE (char valChr) {
+  if (valChr == '2') return TWO;
+  else if (valChr == '3') return THREE;
+  else if (valChr == '4') return FOUR;
+  else if (valChr == '5') return FIVE;
+  else if (valChr == '6') return SIX;
+  else if (valChr == '7') return SEVEN;
+  else if (valChr == '8') return EIGHT;
+  else if (valChr == '9') return NINE;
+  else if (valChr == 'T') return TEN;
+  else if (valChr == 'J') return JACK;
+  else if (valChr == 'Q') return QUEEN;
+  else if (valChr == 'K') return KING;
+  else if (valChr == 'A') return ACE;
+    
+  else std::cerr << "Error: invalid value character " << valChr << std::endl;
+  return TWO;
 }
-char FileIO::valueToChar (int val) {
-  if (val >= 0 && val <= 7) return val + 1 + '0'; // '2' .. '9'
-  else if (val == 8) return 'J';
-  else if (val == 9) return 'Q';
-  else if (val == 10) return 'K';
-  else if (val == 11) return 'A';
-  else return 0;
+enum SUIT FileIO::charToSUIT (char suitChr) {
+  if (suitChr == 'C') return CLUBS;
+  else if (suitChr == 'D') return DIAMONDS;
+  else if (suitChr == 'H') return HEARTS;
+  else return SPADES;
 }
 
 
@@ -49,8 +57,8 @@ bool FileIO::getCard (struct Card *c) {
 
   if (inFile.eof()) return false;
   else {
-    c->value = valueToInt(inC[0]); // Integer needed to rank hands
-    c->suit = inC[1];
+    c->value = charToVALUE(inC[0]);
+    c->suit = charToSUIT(inC[1]);
   }
   return true;
 }
