@@ -155,9 +155,9 @@ struct DeckRank PokerHands::isThreeOfAKind (struct Hand *h) {
 }
 struct DeckRank PokerHands::isStraight (struct Hand *h) {
 
+  // Initialize ret
   struct DeckRank ret;
   ret.active = false;
-  ret.rank = STRAIGHT;
 
   // Copy hand to highCard vector
   for (int i = 0; i < NUM_CARDS_IN_HAND; i++) {
@@ -170,7 +170,7 @@ struct DeckRank PokerHands::isStraight (struct Hand *h) {
   // 3. if (card1 - card5 == 4)) => straight
 
   // 1.
-  sort(ret.highCard.begin(), ret.highCard.end(), std::less<int>());
+  sort(ret.highCard.begin(), ret.highCard.end(), std::greater<int>());
 
   // 2.
   bool noDuplicates = true;
@@ -178,8 +178,10 @@ struct DeckRank PokerHands::isStraight (struct Hand *h) {
     if (*it == *(it + 1)) noDuplicates = false;
 
   // 3.
-  if (noDuplicates && ret.highCard[0] - ret.highCard[4] == 4)
+  if (noDuplicates && ret.highCard[0] - ret.highCard[4] == 4) {
     ret.active = true;
+    ret.rank = STRAIGHT;
+  }
 
   return ret;
 }
